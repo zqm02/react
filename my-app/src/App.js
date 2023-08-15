@@ -28,7 +28,7 @@ function App() {
   console.log(arr2);
 
   const element = <h1 className="title">hello world</h1>;
-
+  // 上面element所写的JSX，最终会被编译调用React.createElement 来创建 js 对象
   const element2 = React.createElement(
     "h1",
     { className: "title" },
