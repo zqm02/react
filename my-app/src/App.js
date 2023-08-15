@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 
 function App() {
   // const ele = <div>Hello,React~!!!</div>;
@@ -26,6 +27,14 @@ function App() {
 
   console.log(arr2);
 
+  const element = <h1 className="title">hello world</h1>;
+
+  const element2 = React.createElement(
+    "h1",
+    { className: "title" },
+    "hello world"
+  );
+
   const ele = (
     <>
       <ul>
@@ -49,6 +58,9 @@ function App() {
       </ul>
 
       {arr2}
+
+      {element}
+      {element2}
     </>
   );
   return ele;

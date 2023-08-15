@@ -12,3 +12,31 @@
 - JSX 允许在模板中插入数组，数组会自动展开所有成员。
 
 ## createElement 方法
+
+JSX 是一种 JavaScript 的语法扩展，Babel 会把 JSX 转译成名为`React.createElement`函数调用。
+
+```js
+    React.createElement(type,[props],[..children]);
+```
+
+参数说明:
+
+- type:创建的 React 元素类型(可选的值有：标签名字符串、React 组件)
+- props(可选):React 元素的属性
+- children(可选):React 元素的子元素
+
+例如，下面两种代码的作用完全是相同的:
+
+```js
+const element = <h1 className="title">hello world</h1>;
+
+const element2 = React.createElement(
+  "h1",
+  { className: "title" },
+  "hello world"
+);
+```
+
+这些对象被称为 "React 元素"。它们描述了你希望在屏幕上看到的内容。
+
+可以看出，JSX 的本质就是 React.createElement 方法的一种语法糖。
