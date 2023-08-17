@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 
+//根组件
 function App() {
   // const ele = <div>Hello,React~!!!</div>;
 
@@ -65,5 +66,12 @@ function App() {
   );
   return ele;
 }
+
+//类组件
+// class App extends React.Component {
+//   render() {
+
+//   }
+// }
 
 export default App;

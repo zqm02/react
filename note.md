@@ -40,3 +40,91 @@ const element2 = React.createElement(
 这些对象被称为 "React 元素"。它们描述了你希望在屏幕上看到的内容。
 
 可以看出，JSX 的本质就是 React.createElement 方法的一种语法糖。
+
+# 组件与事件绑定
+
+## React 中的组件
+
+在 React 中，可以使用类的方式来声明一个组件。
+
+```js
+class 类名 extends React.Component {
+  render() {
+    return {
+      // 一段 JSX
+    };
+  }
+}
+```
+
+除了类组件，React 中还支持使用函数来创建组件，同样需要然会一段 JSX，来表示这个组件的 UI 是什么样的。
+
+```js
+  function 组件名() {
+    return (
+      // 一段 JSX
+    )
+  }
+```
+
+早期的函数组件被称为无状态组件，一般仅仅用来做 UI 的展示，里面不会有复杂的逻辑。
+
+但是 React16.8 推出 Hooks 后，现在更多的是使用函数组件了。
+
+这不仅仅是语法的改变，同时也是整个 React 编程思想的一种转变。
+
+## 为组件绑定事件
+
+在 React 中绑定事件的写法：
+
+```javascript
+<button onClick={active}>Activate Lasers</button>
+```
+
+在 React 中无法通过 return false 来阻止默认行为，所以只有使用 e.preventDefault 的方式来阻止默认行为。
+
+```js
+  function Form() {
+    function handleSubmit (e) {
+      e.preventDefault();
+      console.log('You clicked submit.');
+    }
+
+    return (
+      <form onSubmit={handleSubmit}>
+        <button type="submit">Submit</button>
+      </from>
+    )
+   }
+```
+
+如果是类组件，那么事件处理函数写作一个类方法。
+
+```js
+class Welcome extends React.Component {
+  // 事件处理函数
+
+  eventHandler(e) {
+    window.alert("hello");
+    e.preventDefault();
+  }
+
+  render() {
+    return (
+      <a href="https://www.baidu.com/" onClick={this.eventHandler}>
+        this is a test
+      </a>
+    );
+  }
+}
+```
+
+在 React 的事件处理函数中所传入的事件对象，是一个合成事件对象。
+
+React 也提供了访问原生对象的方式。如下：
+
+```js
+  eventHandler (e) {
+    e.nativeEvent;  // 原生事件对象
+  }
+```
