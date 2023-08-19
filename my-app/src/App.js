@@ -68,10 +68,15 @@ function App() {
 }
 
 //类组件
-// class App extends React.Component {
-//   render() {
+class App extends React.Component {
+  clickHandler() {
+    console.log(this);
+    alert("hello world");
+  }
 
-//   }
-// }
+  render() {
+    return <button onClick={this.clickHandler}>按钮</button>;
+  }
+}
 
 export default App;
