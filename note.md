@@ -41,6 +41,8 @@ const element2 = React.createElement(
 
 可以看出，JSX 的本质就是 React.createElement 方法的一种语法糖。
 
+---
+
 # 组件与事件绑定
 
 ## React 中的组件
@@ -148,4 +150,28 @@ React 也提供了访问原生对象的方式。如下：
 - 通过 bind 方法在绑定 this 指向时向事件处理函数进行传参
 - 绑定事件时，通过书写箭头函数的形式来传参
 
+---
+
 # 组件状态和数据传递
+
+## 组件状态
+
+早期类组件被称之为有状态组件，就是因为在类组件能够维护组件数据
+
+```js
+  class 类名 extends React.Component{
+    constructor() {
+      super() {
+        //设置组件自身的数据状态
+        this.state = {
+          xxx:xxx
+        }
+      }
+      render() {
+        return (
+          //通过 (this.state.xxx) 来获取状态数据
+        )
+      }
+    }
+  }
+```
