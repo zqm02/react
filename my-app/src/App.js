@@ -79,16 +79,16 @@ import React from "react";
 //   }
 // }
 
-// class App extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       Date: "2023 - 08 - 20",
-//     };
-//   }
-//   render() {
-//     return <>{this.state.Date}</>;
-//   }
-// }
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      Date: "2023 - 08 - 20",
+    };
+  }
+  render() {
+    return <>{this.state.Date}</>;
+  }
+}
 
 export default App;
