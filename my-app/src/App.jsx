@@ -1,5 +1,6 @@
 import "./App.css";
 import React from "react";
+import Money from "./component/Money";
 
 //根组件
 // function App() {
@@ -90,5 +91,53 @@ import React from "react";
 //     return <>{this.state.Date}</>;
 //   }
 // }
+
+// =================================================================================================================
+
+class App extends React.Component {
+  state = {
+    dollar: "",
+    rmb: "",
+  };
+
+  transformToRMB = (value) => {
+    if (parseFloat(value) || value === "" || parseFloat(value) === 0) {
+      this.setState({
+        dollar: value,
+        rmb: value === "" ? "" : (value * 7.28).toFixed(2),
+      });
+    } else {
+      alert("Please enter a number");
+    }
+  };
+
+  transformToDollar = (value) => {
+    if (parseFloat(value) || value === "" || parseFloat(value) === 0) {
+      this.setState({
+        dollar: value === "" ? "" : (value / 7.28).toFixed(2),
+        rmb: value,
+      });
+    } else {
+      alert("Please enter a number");
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <Money
+          text="美元"
+          money={this.state.dollar}
+          transform={this.transformToRMB}
+        />
+        <Money
+          text="人民币"
+          money={this.state.rmb}
+          transform={this.transformToDollar}
+        />
+      </div>
+    );
+  }
+}
 
 export default App;
