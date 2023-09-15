@@ -247,6 +247,81 @@ class 组件名 extends React.Component {
 
 在 React 中，如果子组件需要向父组件传递数据，同样是通过触发父组件传递给子组件的事件来进行传递。这在官网称之为"状态提升"
 
+父组件:
+
+```javascript
+class App extends React.Component {
+  state = {
+    dollar: "",
+    rmb: "",
+  };
+
+  transformToRMB = (value) => {
+    if (parseFloat(value) || value === "" || parseFloat(value) === 0) {
+      this.setState({
+        dollar: value,
+        rmb: value === "" ? "" : (value * 7.28).toFixed(2),
+      });
+    } else {
+      alert("Please enter a number");
+    }
+  };
+
+  transformToDollar = (value) => {
+    if (parseFloat(value) || value === "" || parseFloat(value) === 0) {
+      this.setState({
+        dollar: value === "" ? "" : (value / 7.28).toFixed(2),
+        rmb: value,
+      });
+    } else {
+      alert("Please enter a number");
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <Money
+          text="美元"
+          money={this.state.dollar}
+          transform={this.transformToRMB}
+        />
+        <Money
+          text="人民币"
+          money={this.state.rmb}
+          transform={this.transformToDollar}
+        />
+      </div>
+    );
+  }
+}
+```
+
+子组件:
+
+```js
+import React from "react";
+
+function Money(props) {
+  function handleChange(e) {
+    //在子组件中，将用户输入的值传递给父组件
+    //让父组件来进行修改
+    props.transform(e.target.value);
+  }
+
+  return (
+    <div>
+      <fieldset>
+        <legend>{props.text}</legend>
+        <input type="text" value={props.money} onChange={handleChange} />
+      </fieldset>
+    </div>
+  );
+}
+
+export default Money;
+```
+
 ---
 
 # 表单
@@ -262,6 +337,42 @@ class 组件名 extends React.Component {
 下面，我们来看一些具体的案例：
 
 - 一个基本的受控组件
+
+```js
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    value: "",
+  };
+
+  handleChange = (e) => {
+    this.setState({ value: e.target.value });
+  };
+
+  clickHandle = (e) => {
+    console.log(this.state.value);
+  };
+
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          value={this.state.value}
+          onChange={this.handleChange}
+        />
+
+        <button onClick={this.clickHandle}>提交</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
 - 对用户输入的内容进行限制
 - 文本域
 - 单选与多选框

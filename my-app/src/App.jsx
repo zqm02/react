@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import Money from "./component/Money";
+//import Money from "./component/Money";
 
 //根组件
 // function App() {
@@ -94,47 +94,83 @@ import Money from "./component/Money";
 
 // =================================================================================================================
 
+/**
+ * 组件状态和数据传递demo
+ */
+// class App extends React.Component {
+//   state = {
+//     dollar: "",
+//     rmb: "",
+//   };
+
+//   transformToRMB = (value) => {
+//     if (parseFloat(value) || value === "" || parseFloat(value) === 0) {
+//       this.setState({
+//         dollar: value,
+//         rmb: value === "" ? "" : (value * 7.28).toFixed(2),
+//       });
+//     } else {
+//       alert("Please enter a number");
+//     }
+//   };
+
+//   transformToDollar = (value) => {
+//     if (parseFloat(value) || value === "" || parseFloat(value) === 0) {
+//       this.setState({
+//         dollar: value === "" ? "" : (value / 7.28).toFixed(2),
+//         rmb: value,
+//       });
+//     } else {
+//       alert("Please enter a number");
+//     }
+//   };
+
+//   render() {
+//     return (
+//       <div>
+//         <Money
+//           text="美元"
+//           money={this.state.dollar}
+//           transform={this.transformToRMB}
+//         />
+//         <Money
+//           text="人民币"
+//           money={this.state.rmb}
+//           transform={this.transformToDollar}
+//         />
+//       </div>
+//     );
+//   }
+// }
+
+// =================================================================================================================
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
-    dollar: "",
-    rmb: "",
+    value: "",
   };
 
-  transformToRMB = (value) => {
-    if (parseFloat(value) || value === "" || parseFloat(value) === 0) {
-      this.setState({
-        dollar: value,
-        rmb: value === "" ? "" : (value * 7.28).toFixed(2),
-      });
-    } else {
-      alert("Please enter a number");
-    }
+  handleChange = (e) => {
+    this.setState({ value: e.target.value });
   };
 
-  transformToDollar = (value) => {
-    if (parseFloat(value) || value === "" || parseFloat(value) === 0) {
-      this.setState({
-        dollar: value === "" ? "" : (value / 7.28).toFixed(2),
-        rmb: value,
-      });
-    } else {
-      alert("Please enter a number");
-    }
+  clickHandle = (e) => {
+    console.log(this.state.value);
   };
 
   render() {
     return (
       <div>
-        <Money
-          text="美元"
-          money={this.state.dollar}
-          transform={this.transformToRMB}
+        <input
+          type="text"
+          value={this.state.value}
+          onChange={this.handleChange}
         />
-        <Money
-          text="人民币"
-          money={this.state.rmb}
-          transform={this.transformToDollar}
-        />
+
+        <button onClick={this.clickHandle}>提交</button>
       </div>
     );
   }
