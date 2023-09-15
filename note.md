@@ -175,3 +175,80 @@ React 也提供了访问原生对象的方式。如下：
     }
   }
 ```
+
+不要直接去修改状态值，而是应该通过 setState 方法修改组件中的 state 状态数据
+
+```js
+this.setState({
+  xxx: 新值,
+});
+```
+
+setState，它对状态的改变，**可能**是异步的。
+
+> 如果改变状态的代码处于某个 HTML 元素的事件中，则其是异步的，否则是同步
+
+如果在事件处理函数里面想拿到 setState 执行后的数据，可以提前使用一个变量来存储计算结果，或者使用过 setState 的第二个参数，它是一个函数，这个函数会在 state 更新后被调用。
+
+最佳实践：  
+1.把所有的 setState 当作是异步的  
+2.永远不要信任 setState 调用之后的状态  
+3.如果要使用改变之后的状态，需要使用回调函数(setState 的第二个参数)  
+4.如果新的状态要根据之前的状态进行运算，使用函数的方式改变状态(setState 的第一个函数)
+
+> React 会对异步的 setState 进行优化，将多次 setState 进行合并(将多次状态改变完成后，再统一对 State 进行改变，然后触发 render)
+
+## Props
+
+和 Vue 一样,在 React 中组件会存在层级关系，那么自然会涉及到组件之间进行数据的传递。
+
+如果是父组件向子组件传递数据，则使用 props。
+
+如果是函数组件，props 作为函数的一个参数传入:
+
+```js
+  function 组件名(props) {
+    return {
+      // 一段 JSX
+      // 通过props.xxx 获取传入的值
+      <div>
+        <p>姓名:{props.name}</p>
+        <p>年龄:{props.age}</p>
+        <p>性别:{props.gender}</p>
+      </div>
+    }
+  }
+```
+
+如果是类组件，则需要在 constructor 中将 props 通过 super 传递给父类，然后通过 this.props 的方式来获取传入的值:
+
+```js
+class 组件名 extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      // 一段 JSX
+      // 通过props.xxx 获取传入的值
+      <div>
+        <p>姓名:{props.name}</p>
+        <p>年龄:{props.age}</p>
+        <p>性别:{props.gender}</p>
+      </div>
+    );
+  }
+}
+```
+
+## 状态提升
+
+在 Vue 中，父传子通过 props，子传父通过触发自定义事件。
+
+在 React 中，如果子组件需要向父组件传递数据，同样是通过触发父组件传递给子组件的事件来进行传递。这在官网称之为"状态提升"
+
+---
+
+# 表单
+
+##
