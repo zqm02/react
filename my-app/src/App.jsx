@@ -145,16 +145,74 @@ import React from "react";
 
 // =================================================================================================================
 
+//class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+//   }
+//   state = {
+//     value: "",
+//   };
+
+//   handleChange = (e) => {
+//     this.setState({ value: e.target.value });
+//   };
+
+//   clickHandle = (e) => {
+//     console.log(this.state.value);
+//   };
+
+//   render() {
+//     return (
+//       <div>
+//         <input
+//           type="text"
+//           value={this.state.value}
+//           onChange={this.handleChange}
+//         />
+
+//         <button onClick={this.clickHandle}>提交</button>
+//       </div>
+//     );
+//   }
+// }
+
 class App extends React.Component {
   constructor(props) {
     super(props);
   }
   state = {
-    value: "",
+    value1: "",
+    value2: "",
   };
 
   handleChange = (e) => {
-    this.setState({ value: e.target.value });
+    const name = e.target.name;
+    switch (name) {
+      case "one": {
+        //用户输入的是第一个输入框
+        //只能输入数字
+        this.setState({
+          value1: e.target.value.toUpperCase(),
+        });
+        break;
+      }
+      case "two": {
+        //用户输入的是第二个输入框
+        //只能输入数字
+        const newValue = e.target.value
+          .split("")
+          .map((item) => {
+            if (!isNaN(item)) {
+              return item;
+            }
+          })
+          .join("");
+        this.setState({
+          value2: newValue,
+        });
+        break;
+      }
+    }
   };
 
   clickHandle = (e) => {
@@ -166,7 +224,15 @@ class App extends React.Component {
       <div>
         <input
           type="text"
-          value={this.state.value}
+          name="one"
+          value={this.state.value1}
+          onChange={this.handleChange}
+        />
+
+        <input
+          type="text"
+          name="two"
+          value={this.state.value2}
           onChange={this.handleChange}
         />
 
