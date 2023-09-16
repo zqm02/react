@@ -374,12 +374,254 @@ export default App;
 ```
 
 - 对用户输入的内容进行限制
+
+```js
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    value1: "",
+    value2: "",
+  };
+
+  handleChange = (e) => {
+    const name = e.target.name;
+    switch (name) {
+      case "one": {
+        //用户输入的是第一个输入框
+        //只能输入数字
+        this.setState({
+          value1: e.target.value.toUpperCase(),
+        });
+        break;
+      }
+      case "two": {
+        //用户输入的是第二个输入框
+        //只能输入数字
+        const newValue = e.target.value
+          .split("")
+          .map((item) => {
+            if (!isNaN(item)) {
+              return item;
+            }
+          })
+          .join("");
+        this.setState({
+          value2: newValue,
+        });
+        break;
+      }
+    }
+  };
+
+  clickHandle = (e) => {
+    console.log(this.state.value);
+  };
+
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          name="one"
+          value={this.state.value1}
+          onChange={this.handleChange}
+        />
+
+        <input
+          type="text"
+          name="two"
+          value={this.state.value2}
+          onChange={this.handleChange}
+        />
+
+        <button onClick={this.clickHandle}>提交</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
 - 文本域
+
+```javascript
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    value: "",
+  };
+
+  handleChange = (e) => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
+  clickHandle = (e) => {
+    console.log(this.state.value);
+  };
+
+  render() {
+    return (
+      <div>
+        <textarea
+          cols="30"
+          rows="10"
+          value={this.state.value}
+          onChange={this.handleChange}
+        ></textarea>
+        <button onClick={this.clickHandle}>提交</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
 - 单选与多选框
+
+```javascript
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    checkedBox: [
+      { content: "html", checked: false },
+      { content: "css", checked: false },
+      { content: "js", checked: false },
+      { content: "react", checked: false },
+    ],
+  };
+
+  handleChange = (index) => {
+    console.log(index);
+    const arr = [...this.state.checkedBox];
+    arr[index].checked = !arr[index].checked;
+    this.setState({ checkedBox: arr });
+  };
+
+  clickHandle = () => {};
+
+  render() {
+    return (
+      <div>
+        <div>
+          {this.state.checkedBox.map((item, index) => (
+            <div key={index}>
+              <input
+                type="checkbox"
+                value={item.content}
+                checked={item.checked}
+                onChange={() => this.handleChange(index)}
+              />
+              <span>{item.content}</span>
+            </div>
+          ))}
+        </div>
+        <button onClick={this.clickHandle}>提交</button>
+      </div>
+    );
+  }
+}
+```
+
 - 下拉列表
+
+```javascript
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    value: "html",
+  };
+
+  handleChange = (e) => {
+    this.setState({ value: e.target.value });
+  };
+
+  clickHandle = (e) => {
+    console.log(this.state.value);
+  };
+
+  render() {
+    return (
+      <div>
+        <select value={this.state.value} onChange={this.handleChange}>
+          <option value="html">html</option>
+          <option value="css">css</option>
+          <option value="js">js</option>
+        </select>
+        <button onClick={this.clickHandle}>提交</button>
+      </div>
+    );
+  }
+}
+```
 
 ## 非受控组件
 
 大多数情况下，在 React 中推荐使用受控组件来对表单进行操作，这样能够对表单控件的数据进行一个统一的管理。
 
 但是在某些特殊，需要使用以前传统的 DOM 方案进行处理，此时替代的方案就是非受控组件。
+
+- 非受控组件基本示例
+
+```javascript
+class App extends React.Component {
+  constructor() {
+    super();
+    //创建了一个ref,回头我们可以获取到和该ref绑定了的dom节点
+    this.inputCon = React.createRef();
+  }
+
+  clickHandle = () => {
+    //通过 this.inputCon.current 可以获取到input DOM节点
+    console.log(this.inputCon.current.value);
+  };
+  render() {
+    return (
+      <div>
+        <input type="text" ref={this.inputCon} />
+        <button onClick={this.clickHandle}>获取用户输入的内容</button>
+      </div>
+    );
+  }
+}
+```
+
+- 非受控组件的默认值
+
+使用`defaultValue=""`
+
+- 文件上传
+
+```javascript
+class App extends React.Component {
+  constructor() {
+    super();
+    //创建了一个ref,回头我们可以获取到和该ref绑定了的dom节点
+    this.uploadRef = React.createRef();
+  }
+
+  clickHandle = () => {
+    //通过 this.uploadRef.current 可以获取到input DOM节点
+    console.log(this.uploadRef.current.value);
+  };
+  render() {
+    return (
+      <div>
+        <input type="file" ref={this.uploadRef} />
+        <button onClick={this.clickHandle}>获取用户输入的内容</button>
+      </div>
+    );
+  }
+}
+```
