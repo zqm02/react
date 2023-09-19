@@ -655,3 +655,76 @@ React 在组件的生命周期提供了一系列的钩子函数(类似于事件)
   - 通常情况下，会将网络请求、启动计时器等一开始需要的操作，书写到该函数中
 - componentWillUnmount
   - 通常在该函数中销毁一些组件依赖的资源，比如计时器
+
+# Hooks
+
+- Hooks 基本介绍
+- useState 和 useEffect
+- 自定义 Hook
+
+## Hooks 基本介绍
+
+> Hook 是 React16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
+
+Hooks 的出现，首先能解决如下的一些问题：
+
+- 告别令人疑惑的生命周期
+
+```javascript
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      count: 0,
+    };
+  }
+  componentDidMount() {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+
+  componentDidUpdate() {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+
+  render() {
+    return (
+      <div>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          click me
+        </button>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+- 告别类组件中烦人的 this
+  - 在类组件中，会存在 this 的指向问题，例如在事件处理函数中，不能直接通过 this 获取组件示例，需要修正 this 指向
+- 告别繁重的类组件，回归前端程序更加熟悉的函数
+
+另外，Hooks 的出现，还有一个更加重要的一个信号，那就是整个 react 思想上的转变，从“面向对象”的思想开始转变为“函数式编程”
+的思想。这是编程范式上面的转变。
+
+编程范式：
+
+- 命令式编程：告诉计算机怎么做(How)，我们需要给计算机指明每一条步骤
+  - 面向过程
+  - 面向对象
+- 声明式编程：告诉计算机要什么(What)
+  - 函数式编程
+  - DSL（领域专用语言，_HTML_，_CSS_，_SQL_）
+
+声明式编程并不是新产物，它是命令式编程同期出现的，但是早期更加流行命令式编程。不过随着近几年项目工程越来越复杂，以前的命令式编程就有点力不从心了，所以现在慢慢开始流行声明式编程。
+
+因此当你学习 Hooks 的时候，会发现突然多了一些以前不熟悉的概念。例如：纯函数、副作用、柯里化、高阶函数等概念。
+
+Hooks 就是 JavaScript 函数，但是使用它们会有两个额外的规则：
+
+- 只能在**函数最外层**调用 Hook。不要在循环、条件判断或者子函数中调用。
+- 只能在**React 的函数组件**中调用 Hook。不要在其他 JavaScript 函数中调用
+
+## useState 和 useEffect

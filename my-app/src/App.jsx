@@ -393,22 +393,50 @@ import React from "react";
 //   }
 // }
 
+// class App extends React.Component {
+//   constructor() {
+//     super();
+//     //创建了一个ref,回头我们可以获取到和该ref绑定了的dom节点
+//     this.uploadRef = React.createRef();
+//   }
+
+//   clickHandle = () => {
+//     //通过 this.uploadRef.current 可以获取到input DOM节点
+//     console.log(this.uploadRef.current.value);
+//   };
+//   render() {
+//     return (
+//       <div>
+//         <input type="file" ref={this.uploadRef} />
+//         <button onClick={this.clickHandle}>获取用户输入的内容</button>
+//       </div>
+//     );
+//   }
+// }
+
 class App extends React.Component {
   constructor() {
     super();
-    //创建了一个ref,回头我们可以获取到和该ref绑定了的dom节点
-    this.uploadRef = React.createRef();
+
+    this.state = {
+      count: 0,
+    };
+  }
+  componentDidMount() {
+    document.title = `You clicked ${this.state.count} times`;
   }
 
-  clickHandle = () => {
-    //通过 this.uploadRef.current 可以获取到input DOM节点
-    console.log(this.uploadRef.current.value);
-  };
+  componentDidUpdate() {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+
   render() {
     return (
       <div>
-        <input type="file" ref={this.uploadRef} />
-        <button onClick={this.clickHandle}>获取用户输入的内容</button>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          click me
+        </button>
       </div>
     );
   }
