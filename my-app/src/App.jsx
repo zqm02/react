@@ -482,30 +482,40 @@ import { useEffect } from "react";
 // }
 
 function App() {
-  let [count, setCount] = useState(0);
+  let [count1, setCount1] = useState(0);
+  let [count2, setCount2] = useState(0);
+  let [count3, setCount3] = useState(0);
 
   useEffect(() => {
-    //书写你要执行的副作用，会在组件渲染完成后执行
-    const stopTimer = setInterval(() => {
-      console.log("helloWorld");
-    }, 1000);
-
-    //在useEffect中可以返回一个函数，该函数我们称之为清理函数(一般就是做一些清理工作)
-    //该函数会在下一次渲染之后，但是在执行副作用操作之前执行
-    return () => {
-      // console.log("清理函数执行了");
-      clearInterval(stopTimer);
-    };
-  });
-
-  function clickhandle() {
-    setCount(++count);
-  }
+    console.log("执行了副作用函数");
+  }, []);
 
   return (
     <div>
-      <div>你点击了{count}次</div>
-      <button onClick={clickhandle}>+1</button>
+      <div>count1:{count1}</div>
+      <div>count2:{count2}</div>
+      <div>count3:{count3}</div>
+      <button
+        onClick={() => {
+          setCount1(++count1);
+        }}
+      >
+        +1
+      </button>
+      <button
+        onClick={() => {
+          setCount2(++count2);
+        }}
+      >
+        +1
+      </button>
+      <button
+        onClick={() => {
+          setCount3(++count3);
+        }}
+      >
+        +1
+      </button>
     </div>
   );
 }

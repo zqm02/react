@@ -831,6 +831,8 @@ function App() {
 - 执行清理工作
 
 ```javascript
+import { useState } from "react";
+import { useEffect } from "react";
 function App() {
   let [count, setCount] = useState(0);
 
@@ -864,5 +866,62 @@ export default App;
 ```
 
 - 副作用的依赖
+  - 目前我们的副作用函数，每次重新渲染后，都会重新执行，有些时候我们需要设置依赖项，传递第二个参数，第二个参数为一个依赖数组
+
+```javascript
+import { useState } from "react";
+import { useEffect } from "react";
+function App() {
+  let [count1, setCount1] = useState(0);
+  let [count2, setCount2] = useState(0);
+  let [count3, setCount3] = useState(0);
+
+  useEffect(() => {
+    console.log("执行了副作用函数");
+  }, [count1]);
+
+  return (
+    <div>
+      <div>count1:{count1}</div>
+      <div>count2:{count2}</div>
+      <div>count3:{count3}</div>
+      <button
+        onClick={() => {
+          setCount1(++count1);
+        }}
+      >
+        +1
+      </button>
+      <button
+        onClick={() => {
+          setCount2(++count2);
+        }}
+      >
+        +1
+      </button>
+      <button
+        onClick={() => {
+          setCount3(++count3);
+        }}
+      >
+        +1
+      </button>
+    </div>
+  );
+}
+```
+
+- 如果想要副作用只执行一次，传递第二个参数为一个空数组
+
+```javascript
+useEffect(() => {
+  console.log("执行了副作用函数");
+}, []);
+```
 
 ## 自定义 Hook
+
+除了使用官方内置的 Hook，我们还可以使用自定义 Hook，自定义 Hook 的本质其实就是函数，但是和普通函数还是有一些区别，主要体现在以下两点：
+
+- 自定义 Hook 能够调用诸如 useState、useRef 等，普通函数则不能。由此可以通过内置的 Hooks 获得 Fiber 的访问方式。可以实现在组件级别存储数据的方案等。
+- 自定义 Hooks 需要以 use 开头，普通函数则没有这个限制。使用 use 开头并不是一个语法或者一个强制性的方案，更像是一个约定。
