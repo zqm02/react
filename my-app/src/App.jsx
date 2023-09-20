@@ -444,16 +444,37 @@ import React from "react";
 
 import { useState } from "react";
 
+// function App(props) {
+//   let [count, setCount] = useState(0);
+
+//   function clickhandle() {
+//     setCount(++count);
+//   }
+
+//   return (
+//     <div>
+//       <div> {count}</div>
+//       <button onClick={clickhandle}>+1</button>
+//     </div>
+//   );
+// }
+
 function App(props) {
-  let [count, setCount] = useState(0);
+  let [age, setAge] = useState(18);
+  let [fruit, setFruit] = useState("banana");
+  let [todos, setTodos] = useState([{ text: "学习 Hook" }]);
 
   function clickhandle() {
-    setCount(++count);
+    setAge(++age);
+    setFruit("apple");
+    setTodos([{ text: "休息一下" }]);
   }
 
   return (
     <div>
-      <div> {count}</div>
+      <div>年龄:{age}</div>
+      <div>水果:{fruit}</div>
+      <div>代办事项:{todos[0].text}</div>
       <button onClick={clickhandle}>+1</button>
     </div>
   );

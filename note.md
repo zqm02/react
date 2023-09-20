@@ -758,6 +758,33 @@ export default App;
 
 - 声明多个 state 状态
 
+```javascript
+import { useState } from "react";
+
+function App(props) {
+  let [age, setAge] = useState(18);
+  let [fruit, setFruit] = useState("banana");
+  let [todos, setTodos] = useState([{ text: "学习 Hook" }]);
+
+  function clickhandle() {
+    setAge(++age);
+    setFruit("apple");
+    setTodos([{ text: "休息一下" }]);
+  }
+
+  return (
+    <div>
+      <div>年龄:{age}</div>
+      <div>水果:{fruit}</div>
+      <div>代办事项:{todos[0].text}</div>
+      <button onClick={clickhandle}>+1</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
 useEffect 包含以下知识点：
 
 - 副作用的概念
