@@ -414,32 +414,49 @@ import React from "react";
 //   }
 // }
 
-class App extends React.Component {
-  constructor() {
-    super();
+// class App extends React.Component {
+//   constructor() {
+//     super();
 
-    this.state = {
-      count: 0,
-    };
-  }
-  componentDidMount() {
-    document.title = `You clicked ${this.state.count} times`;
+//     this.state = {
+//       count: 0,
+//     };
+//   }
+//   componentDidMount() {
+//     document.title = `You clicked ${this.state.count} times`;
+//   }
+
+//   componentDidUpdate() {
+//     document.title = `You clicked ${this.state.count} times`;
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <p>You clicked {this.state.count} times</p>
+//         <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+//           click me
+//         </button>
+//       </div>
+//     );
+//   }
+// }
+
+import { useState } from "react";
+
+function App(props) {
+  let [count, setCount] = useState(0);
+
+  function clickhandle() {
+    setCount(++count);
   }
 
-  componentDidUpdate() {
-    document.title = `You clicked ${this.state.count} times`;
-  }
-
-  render() {
-    return (
-      <div>
-        <p>You clicked {this.state.count} times</p>
-        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
-          click me
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <div> {count}</div>
+      <button onClick={clickhandle}>+1</button>
+    </div>
+  );
 }
 
 export default App;

@@ -728,3 +728,45 @@ Hooks 就是 JavaScript 函数，但是使用它们会有两个额外的规则�
 - 只能在**React 的函数组件**中调用 Hook。不要在其他 JavaScript 函数中调用
 
 ## useState 和 useEffect
+
+React 内置了一些实用的 Hook，并且随着 React 版本的更新，Hook 的数量还在持续增加中。
+
+useState 包含以下的知识点：
+
+- 基本使用
+
+```javascript
+import { useState } from "react";
+
+function App(props) {
+  let [count, setCount] = useState(0);
+
+  function clickhandle() {
+    setCount(++count);
+  }
+
+  return (
+    <div>
+      <div> {count}</div>
+      <button onClick={clickhandle}>+1</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+- 声明多个 state 状态
+
+useEffect 包含以下知识点：
+
+- 副作用的概念
+- 基本使用
+- 执行清理工作
+- 副作用的依赖
+
+## 自定义 Hook
+
+```
+
+```
