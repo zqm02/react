@@ -443,6 +443,7 @@ import React from "react";
 // }
 
 import { useState } from "react";
+import { useEffect } from "react";
 
 // function App(props) {
 //   let [count, setCount] = useState(0);
@@ -459,22 +460,51 @@ import { useState } from "react";
 //   );
 // }
 
-function App(props) {
-  let [age, setAge] = useState(18);
-  let [fruit, setFruit] = useState("banana");
-  let [todos, setTodos] = useState([{ text: "学习 Hook" }]);
+// function App(props) {
+//   let [age, setAge] = useState(18);
+//   let [fruit, setFruit] = useState("banana");
+//   let [todos, setTodos] = useState([{ text: "学习 Hook" }]);
+
+//   function clickhandle() {
+//     setAge(++age);
+//     setFruit("apple");
+//     setTodos([{ text: "休息一下" }]);
+//   }
+
+//   return (
+//     <div>
+//       <div>年龄:{age}</div>
+//       <div>水果:{fruit}</div>
+//       <div>代办事项:{todos[0].text}</div>
+//       <button onClick={clickhandle}>+1</button>
+//     </div>
+//   );
+// }
+
+function App() {
+  let [count, setCount] = useState(0);
+
+  useEffect(() => {
+    //书写你要执行的副作用，会在组件渲染完成后执行
+    const stopTimer = setInterval(() => {
+      console.log("helloWorld");
+    }, 1000);
+
+    //在useEffect中可以返回一个函数，该函数我们称之为清理函数(一般就是做一些清理工作)
+    //该函数会在下一次渲染之后，但是在执行副作用操作之前执行
+    return () => {
+      // console.log("清理函数执行了");
+      clearInterval(stopTimer);
+    };
+  });
 
   function clickhandle() {
-    setAge(++age);
-    setFruit("apple");
-    setTodos([{ text: "休息一下" }]);
+    setCount(++count);
   }
 
   return (
     <div>
-      <div>年龄:{age}</div>
-      <div>水果:{fruit}</div>
-      <div>代办事项:{todos[0].text}</div>
+      <div>你点击了{count}次</div>
       <button onClick={clickhandle}>+1</button>
     </div>
   );

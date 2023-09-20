@@ -788,12 +788,81 @@ export default App;
 useEffect 包含以下知识点：
 
 - 副作用的概念
+
+  - 纯函数：一个确切的参数在你的函数中运行后，一定能得到一个确切的值。
+  - 例如下面的例子:
+
+    ```javascript
+    function test(x) {
+      return x * 2;
+    }
+    ```
+
+  - 如果一个函数中，存在副作用，那么我们就称该函数不是一个纯函数，所谓副作用，就是指函数的结果是不可控，不可预期。
+  - 常见的副作用有：发送网络请求，添加一些监听的注册和取消注册，手动修改 DOM。以前我们是将这些副作用写在生命周期钩子函数里面，现在就可以书写在 useEffect 里面。
+
 - 基本使用
+
+```javascript
+import { useState } from "react";
+import { useEffect } from "react";
+
+function App() {
+  let [count, setCount] = useState(0);
+
+  useEffect(() => {
+    //书写你要执行的副作用，会在组件渲染完成后执行
+    document.title = `你点击了${count}次`;
+  });
+
+  function clickhandle() {
+    setCount(++count);
+  }
+
+  return (
+    <div>
+      <div>你点击了{count}次</div>
+      <button onClick={clickhandle}>+1</button>
+    </div>
+  );
+}
+```
+
 - 执行清理工作
+
+```javascript
+function App() {
+  let [count, setCount] = useState(0);
+
+  useEffect(() => {
+    //书写你要执行的副作用，会在组件渲染完成后执行
+    const stopTimer = setInterval(() => {
+      console.log("helloWorld");
+    }, 1000);
+
+    //在useEffect中可以返回一个函数，该函数我们称之为清理函数(一般就是做一些清理工作)
+    //该函数会在下一次渲染之后，但是在执行副作用操作之前执行
+    return () => {
+      // console.log("清理函数执行了");
+      clearInterval(stopTimer);
+    };
+  });
+
+  function clickhandle() {
+    setCount(++count);
+  }
+
+  return (
+    <div>
+      <div>你点击了{count}次</div>
+      <button onClick={clickhandle}>+1</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
 - 副作用的依赖
 
 ## 自定义 Hook
-
-```
-
-```
